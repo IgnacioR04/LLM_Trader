@@ -1,0 +1,9 @@
+# Normaliza saltos de linea a LF en el repo (importante: los runners de
+# GitHub Actions son Linux). Evita el warning CRLF<->LF en Windows.
+* text=auto eol=lf
+
+# Binarios: no tocar
+*.png binary
+*.jpg binary
+*.parquet binary
+*.ipynb binary
