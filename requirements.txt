@@ -1,0 +1,12 @@
+# Core data / market access
+ccxt>=4.4.0
+pandas>=2.2
+numpy>=1.26
+PyYAML>=6.0
+
+# Charts (paso 3)
+mplfinance>=0.12.10b0
+matplotlib>=3.8
+
+# LLM (paso 4)
+anthropic>=0.40.0

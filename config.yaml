@@ -1,0 +1,39 @@
+# Configuracion del bot LLM_Trader.
+# Todo lo "afinable" vive aqui para no tocar codigo.
+
+market:
+  exchange: binance
+  market_type: future      # spot | future (USDT-M perpetual)
+  symbol: BTC/USDT
+  orderbook_depth: 1000    # niveles por lado (BTC perp solo cubre ~+-0.2% del mid)
+  orderbook_bands_pct:     # bandas de profundidad medibles via REST (no +-1/2%)
+    - 0.0005               # +-0.05%
+    - 0.001                # +-0.10%
+    - 0.002                # +-0.20%
+  klines_limit: 300        # velas por timeframe (>=300 para EMA200 con margen)
+  use_closed_candles: true # indicadores sobre velas CERRADAS (sin ruido de vela parcial)
+  timeframes:              # se descargan y se calculan features para todos
+    - 1h
+    - 4h
+    - 1d
+  base_timeframe: 4h       # timeframe de decision / horizonte
+
+prediction:
+  horizon_hours: 4         # horizonte del trade simulado
+  model: claude-sonnet-4-6
+  temperature: 0.2
+  max_tokens: 2000
+
+paper_trading:
+  fee_bps_per_side: 5.0    # fee realista por lado (taker), en basis points
+  # el spread efectivo se penaliza usando el spread real del snapshot
+
+chart:
+  candles: 100             # velas mostradas en cada grafico
+  timeframes:              # graficos que se generan y se mandan al LLM
+    - 4h
+    - 1h
+
+volatility:
+  ewma_lambda: 0.94        # RiskMetrics: decay para vol EWMA
+  atr_percentile_window: 200  # ventana para percentil de ATR (regimen vol)
